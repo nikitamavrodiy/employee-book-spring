@@ -55,5 +55,4 @@ public class EmployeeService {
                 .filter(e -> e.getSalary() > average)
                 .collect(Collectors.toList());
     }
-
 }
