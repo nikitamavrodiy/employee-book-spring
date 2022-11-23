@@ -1,7 +1,9 @@
 package com.skypro.employee.service;
 
+import com.skypro.employee.exception.EmployeeIllegalArgumentException;
 import com.skypro.employee.model.Employee;
 import com.skypro.employee.record.EmployeeRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -18,11 +20,13 @@ public class EmployeeService {
     }
 
     public Employee addEmployee(EmployeeRequest employeeRequest) {
-        if (employeeRequest.getFirstName() == null || employeeRequest.getLastName() == null) {
-            throw new IllegalArgumentException("Employee name should be set");
+        if (StringUtils.isAnyBlank(employeeRequest.getFirstName(), employeeRequest.getLastName())
+                || !StringUtils.isAlpha(employeeRequest.getFirstName() + employeeRequest.getLastName())) {
+
+            throw new EmployeeIllegalArgumentException();
         }
-        Employee employee = new Employee(employeeRequest.getFirstName(),
-                employeeRequest.getLastName(),
+        Employee employee = new Employee(StringUtils.capitalize(employeeRequest.getFirstName()),
+                StringUtils.capitalize(employeeRequest.getLastName()),
                 employeeRequest.getDepartmnet(),
                 employeeRequest.getSalary());
 
