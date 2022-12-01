@@ -24,10 +24,11 @@ public class EmployeeService {
                 || !StringUtils.isAlpha(employeeRequest.getFirstName() + employeeRequest.getLastName())) {
 
             throw new EmployeeIllegalArgumentException();
-        }
+
+    }
         Employee employee = new Employee(StringUtils.capitalize(employeeRequest.getFirstName()),
                 StringUtils.capitalize(employeeRequest.getLastName()),
-                employeeRequest.getDepartmnet(),
+                employeeRequest.getDepartment(),
                 employeeRequest.getSalary());
 
         this.employees.put(employee.getId(), employee);
@@ -58,5 +59,9 @@ public class EmployeeService {
         return employees.values().stream()
                 .filter(e -> e.getSalary() > average)
                 .collect(Collectors.toList());
+    }
+
+    public Employee removeEmployee(int id) {
+        return employees.remove(id);
     }
 }
