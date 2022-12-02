@@ -4,6 +4,7 @@ import com.skypro.employee.exception.EmployeeIllegalArgumentException;
 import com.skypro.employee.model.Employee;
 import com.skypro.employee.service.DepartmentService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
@@ -21,23 +22,23 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/department/employees")
-    public Collection<Employee> getDepartmentEmployees(@PathParam("id") int department) {
+    @GetMapping("/department/{id}/employees")
+    public Collection<Employee> getDepartmentEmployees(@PathVariable("id") int department) {
         return departmentService.getDepartmentEmployees(department);
     }
 
-    @GetMapping("/department/salary/sum")
-    public int getSumOfSalariesByDepartment(@PathParam("id") int department) {
+    @GetMapping("/department/{id}/salary/sum")
+    public int getSumOfSalariesByDepartment(@PathVariable("id") int department) {
         return departmentService.getSumOfSalariesByDepartment(department);
     }
 
-    @GetMapping("/department/salary/max")
-    public int getMaxSalaryByDepartment(@PathParam("id") int department) {
+    @GetMapping("/department/{id}/salary/max")
+    public int getMaxSalaryByDepartment(@PathVariable("id") int department) {
         return departmentService.getMaxSalaryByDepartment(department);
     }
 
-    @GetMapping("/department/salary/min")
-    public int getMinSalaryByDepartment(@PathParam("id") int department) {
+    @GetMapping("/department/{id}/salary/min")
+    public int getMinSalaryByDepartment(@PathVariable("id") int department) {
         return departmentService.getMinSalaryByDepartment(department);
     }
 
